@@ -60,6 +60,7 @@
             background-color: #F0F0F0;
             display: flex;
             justify-content: space-between;
+            position: relative;
         }
         .search__input {
             width: 290px;
@@ -69,14 +70,16 @@
             position: relative;
             border: none;
         }
-        .search__input::before {
+        .search__before-my, .search__before-selected {
             position: absolute;
-            content: ' ';
             width: 13px;
             height: 13px;
-            background-color: #000;
-            /*background-image: url("./img/search.svg");*/
-            left: 9px;
+            top: 17px;
+            left: 23px;
+            z-index: 5;
+        }
+        .search__before-selected {
+            left: 326px;
         }
         .search__input::placeholder {
             font-family: 'Roboto', sans-serif;
@@ -87,17 +90,36 @@
         }
         .friends {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             padding: 12px 16px 0;
             text-align: left;
+            position: relative;
+        }
+        .friends::before {
+            content: '';
+            position: absolute;
+            height: 376px;
+            width: 1px;
+            background-color: #F0F0F0;
+            right: 310px;
+            top: 0;
         }
         .friends__header {
             margin-left: 4px;
+            position: relative;
+        }
+        .friends__header::after {
+            position: absolute;
+            content: '';
+            width: 280px;
+            height: 1px;
+            bottom: -5px;
+            left: -4px;
+            background-color: #F0F0F0;
         }
         .friends__list {
             margin-top: 5px;
             padding-right: 9px;
-            border-top: 1px solid #F0F0F0;
             width: 288px;
             height: 345px;
             list-style: none;
@@ -118,16 +140,21 @@
             align-items: center;
             padding: 8px 6px;
             position: relative;
+            cursor: pointer;
+        }
+        .list__item:hover {
+            background-color: #F0F0F0;
         }
         .list__item-img {
             margin-right: 7px;
+            border-radius: 100%;
         }
         .list__item-name {
             display: inline-block;
         }
         .list__item-block {
             position: absolute;
-            right: 0;
+            right: 10px;
         }
         .footer {
             height: 45px;
@@ -148,7 +175,17 @@
             </button>
         </div>
         <div class="search__wrapper">
+            <div class="search__before-my">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.6827 11.1509L9.93264 8.4008C10.5009 7.54441 10.8334 6.51903 10.8334 5.41672C10.8334 2.42994 8.4035 0 5.41672 0C2.42994 0 0 2.42994 0 5.41672C0 8.4035 2.42994 10.8334 5.41672 10.8334C6.51903 10.8334 7.54441 10.5009 8.4008 9.93264L11.1509 12.6827C11.5734 13.1058 12.2602 13.1058 12.6827 12.6827C13.1058 12.2597 13.1058 11.5739 12.6827 11.1509ZM1.62502 5.41672C1.62502 3.32587 3.32587 1.62502 5.41672 1.62502C7.50758 1.62502 9.20843 3.32587 9.20843 5.41672C9.20843 7.50758 7.50758 9.20843 5.41672 9.20843C3.32587 9.20843 1.62502 7.50758 1.62502 5.41672Z" fill="#A0A0A0"/>
+                </svg>
+            </div>
             <input type="text" class="search__input" placeholder="Начните вводить имя друга">
+            <div class="search__before-selected">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.6827 11.1509L9.93264 8.4008C10.5009 7.54441 10.8334 6.51903 10.8334 5.41672C10.8334 2.42994 8.4035 0 5.41672 0C2.42994 0 0 2.42994 0 5.41672C0 8.4035 2.42994 10.8334 5.41672 10.8334C6.51903 10.8334 7.54441 10.5009 8.4008 9.93264L11.1509 12.6827C11.5734 13.1058 12.2602 13.1058 12.6827 12.6827C13.1058 12.2597 13.1058 11.5739 12.6827 11.1509ZM1.62502 5.41672C1.62502 3.32587 3.32587 1.62502 5.41672 1.62502C7.50758 1.62502 9.20843 3.32587 9.20843 5.41672C9.20843 7.50758 7.50758 9.20843 5.41672 9.20843C3.32587 9.20843 1.62502 7.50758 1.62502 5.41672Z" fill="#A0A0A0"/>
+                </svg>
+            </div>
             <input type="text" class="search__input" placeholder="Начните вводить имя друга">
         </div>
         <div class="friends">
@@ -250,6 +287,26 @@
             <div class="selected-friends__wrapper">
                 <p class="friends__header">Избранные друзья</p>
                 <ul class="friends__list">
+                    <li class="list__item">
+                        <img class="list__item-img" src="img/photo.png">
+                        <p class="list__item-name">Иришка Кочерыжка</p>
+                        <div class="list__item-block">
+                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.48284 6.79994C10.1724 7.47114 10.1724 8.55937 9.48284 9.23057C8.7933 9.90176 7.67533 9.90176 6.98579 9.23056L0.517158 2.93402C-0.172384 2.26282 -0.172385 1.1746 0.517158 0.503398C1.2067 -0.1678 2.32467 -0.1678 3.01421 0.503398L9.48284 6.79994Z" fill="#C4C4C4"/>
+                                <path d="M9.48284 9.20006C10.1724 8.52887 10.1724 7.44064 9.48284 6.76944C8.7933 6.09824 7.67533 6.09824 6.98579 6.76944L0.517159 13.066C-0.172383 13.7372 -0.172384 14.8254 0.517158 15.4966C1.2067 16.1678 2.32467 16.1678 3.01421 15.4966L9.48284 9.20006Z" fill="#C4C4C4"/>
+                            </svg>
+                        </div>
+                    </li>
+                    <li class="list__item">
+                        <img class="list__item-img" src="img/photo.png">
+                        <p class="list__item-name">Иришка Кочерыжка</p>
+                        <div class="list__item-block">
+                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.48284 6.79994C10.1724 7.47114 10.1724 8.55937 9.48284 9.23057C8.7933 9.90176 7.67533 9.90176 6.98579 9.23056L0.517158 2.93402C-0.172384 2.26282 -0.172385 1.1746 0.517158 0.503398C1.2067 -0.1678 2.32467 -0.1678 3.01421 0.503398L9.48284 6.79994Z" fill="#C4C4C4"/>
+                                <path d="M9.48284 9.20006C10.1724 8.52887 10.1724 7.44064 9.48284 6.76944C8.7933 6.09824 7.67533 6.09824 6.98579 6.76944L0.517159 13.066C-0.172383 13.7372 -0.172384 14.8254 0.517158 15.4966C1.2067 16.1678 2.32467 16.1678 3.01421 15.4966L9.48284 9.20006Z" fill="#C4C4C4"/>
+                            </svg>
+                        </div>
+                    </li>
 
                 </ul>
             </div>
