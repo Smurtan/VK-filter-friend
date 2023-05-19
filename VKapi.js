@@ -1,7 +1,7 @@
 export default class VKApi {
     constructor() {
         VK.init({
-            apiId: ******
+            apiId: 51650068
         });
     }
 
