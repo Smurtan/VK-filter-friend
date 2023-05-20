@@ -180,6 +180,19 @@
         .list__item-block {
             position: absolute;
             right: 10px;
+            cursor: pointer;
+        }
+
+        .friends__list .list__item-block {
+            width: 10px;
+            height: 16px;
+            background-image: url("./img/arrow.svg");
+        }
+
+        .selected__list .list__item-block {
+            width: 13px;
+            height: 13px;
+            background-image: url("./img/cross.svg");
         }
 
         .footer {
@@ -187,13 +200,17 @@
             background-color: #F0F0F0;
             border-radius: 0 0 10px 10px;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h3 class="header__title">Выберите друзей</h3>
-            <button class="header__close">
+            <button class="header__close" data-role="window-close">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.86482 0.656262C9.73983 -0.218753 11.1585 -0.218754 12.0335 0.65626C12.9085 1.53127 12.9085 2.94995 12.0335 3.82497L3.82497 12.0335C2.94995 12.9085 1.53128 12.9085 0.656261 12.0335C-0.218754 11.1585 -0.218753 9.73983 0.656261 8.86482L8.86482 0.656262Z"
                           fill="white"/>
@@ -209,14 +226,14 @@
                           fill="#A0A0A0"/>
                 </svg>
             </div>
-            <input type="text" class="search__input" placeholder="Начните вводить имя друга">
+            <input type="text" class="search__input" placeholder="Начните вводить имя друга" data-role="all-input">
             <div class="search__before-selected">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12.6827 11.1509L9.93264 8.4008C10.5009 7.54441 10.8334 6.51903 10.8334 5.41672C10.8334 2.42994 8.4035 0 5.41672 0C2.42994 0 0 2.42994 0 5.41672C0 8.4035 2.42994 10.8334 5.41672 10.8334C6.51903 10.8334 7.54441 10.5009 8.4008 9.93264L11.1509 12.6827C11.5734 13.1058 12.2602 13.1058 12.6827 12.6827C13.1058 12.2597 13.1058 11.5739 12.6827 11.1509ZM1.62502 5.41672C1.62502 3.32587 3.32587 1.62502 5.41672 1.62502C7.50758 1.62502 9.20843 3.32587 9.20843 5.41672C9.20843 7.50758 7.50758 9.20843 5.41672 9.20843C3.32587 9.20843 1.62502 7.50758 1.62502 5.41672Z"
                           fill="#A0A0A0"/>
                 </svg>
             </div>
-            <input type="text" class="search__input" placeholder="Начните вводить имя друга">
+            <input type="text" class="search__input" placeholder="Начните вводить имя друга" data-role="selected-input">
         </div>
         <div class="friends">
             <div class="my-friends__wrapper">
@@ -225,7 +242,7 @@
             </div>
             <div class="selected-friends__wrapper">
                 <p class="friends__header">Избранные друзья</p>
-                <ul class="friends__list" data-role="selected-friends-list"></ul>
+                <ul class="friends__list selected__list" data-role="selected-friends-list"></ul>
             </div>
         </div>
         <div class="footer"></div>
@@ -233,16 +250,10 @@
 
     <script data-role="friend-template" type="text/x-handlebars-template">
         {{#each items}}
-            <li class="list__item">
+            <li class="list__item" data-friendid="{{id}}" draggable="true">
                 <img class="list__item-img" src="{{photo_50}}">
                 <p class="list__item-name">{{first_name}} {{last_name}}</p>
-                <div class="list__item-block">
-                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.48284 6.79994C10.1724 7.47114 10.1724 8.55937 9.48284 9.23057C8.7933 9.90176 7.67533 9.90176 6.98579 9.23056L0.517158 2.93402C-0.172384 2.26282 -0.172385 1.1746 0.517158 0.503398C1.2067 -0.1678 2.32467 -0.1678 3.01421 0.503398L9.48284 6.79994Z"
-                              fill="#C4C4C4"/>
-                        <path d="M9.48284 9.20006C10.1724 8.52887 10.1724 7.44064 9.48284 6.76944C8.7933 6.09824 7.67533 6.09824 6.98579 6.76944L0.517159 13.066C-0.172383 13.7372 -0.172384 14.8254 0.517158 15.4966C1.2067 16.1678 2.32467 16.1678 3.01421 15.4966L9.48284 9.20006Z"
-                              fill="#C4C4C4"/>
-                    </svg>
+                <div class="list__item-block" data-role="move-friend">
                 </div>
             </li>
         {{/each}}
