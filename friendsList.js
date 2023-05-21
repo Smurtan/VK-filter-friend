@@ -78,10 +78,10 @@ export default class FriendsList {
     searchFriends() {
         const searchString = this.searchNode.value.toLowerCase();
         for (const friend in this.friends) {
-            if (this.friends[friend].last_name.toLowerCase().startsWith(searchString) ||
-                this.friends[friend].first_name.toLowerCase().startsWith(searchString) ||
-                `${this.friends[friend].first_name} ${this.friends[friend].last_name}`.toLowerCase().startsWith(searchString) ||
-                `${this.friends[friend].last_name} ${this.friends[friend].first_name}`.toLowerCase().startsWith(searchString)
+            if (this.friends[friend].last_name.toLowerCase().includes(searchString) ||
+                this.friends[friend].first_name.toLowerCase().includes(searchString) ||
+                `${this.friends[friend].first_name} ${this.friends[friend].last_name}`.toLowerCase().includes(searchString) ||
+                `${this.friends[friend].last_name} ${this.friends[friend].first_name}`.toLowerCase().includes(searchString)
             ) {
                 this.myListNode.querySelector(`[data-friendid='${friend}']`).classList.remove('hidden');
             } else {
