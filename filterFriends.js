@@ -9,7 +9,7 @@ export default class FilterFriends {
             .addEventListener('click', () => {
                 window.close();
             })
-        this.vkApi = new VKApi();
+        this.vkApi = new VKApi(51650068, 2);
         this.friendTemplate = document.querySelector('[data-role=friend-template]').textContent;
         this.allFriendsList = new FriendsList(
             document.querySelector('[data-role=all-friends-list]'),
@@ -36,16 +36,8 @@ export default class FilterFriends {
         this.initiateFriends();
     }
 
-    async loadFriends() {
-         return  await this.vkApi.callAPI('friends.get', {
-            order: 'hints',
-            fields: 'photo_50',
-            name_case: 'nom'
-        });
-    }
-
     async initiateFriends() {
-        this.friends = await this.loadFriends();
+        this.friends = await this.vkApi.getFriends();
         this.selectedFriends = this.storage.get();
 
         if (this.selectedFriends.length) {

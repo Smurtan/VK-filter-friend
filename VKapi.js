@@ -1,19 +1,22 @@
 export default class VKApi {
-    constructor() {
-        VK.init({
-            apiId: 51650068
-        });
+    constructor(appId, perms) {
+        this.appId = appId;
+        this.perms = perms;
     }
 
     auth() {
         return new Promise((resolve, reject) => {
+            VK.init({
+                apiId: this.appId
+            });
+
             VK.Auth.login(data => {
                 if (data.session) {
                     resolve();
                 } else {
                     reject(new Error('Не удалось авторизоваться'));
                 }
-            }, 2);
+            }, this.perms);
         })
     }
 
@@ -28,5 +31,15 @@ export default class VKApi {
                 }
             });
         })
+    }
+
+    getFriends() {
+        const params = {
+            order: 'hints',
+            fields: ['photo_50'],
+            name_case: 'nom'
+        };
+
+        return this.callAPI('friends.get', params);
     }
 }
